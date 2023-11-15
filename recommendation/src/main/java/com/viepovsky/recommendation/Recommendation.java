@@ -27,5 +27,5 @@ class Recommendation {
     private Long id;
     private Long barberId;
     private boolean isRecommended;
-    private LocalDateTime recommendationTime;
+    private LocalDateTime recommendationCheckTime;
 }
