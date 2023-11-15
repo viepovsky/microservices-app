@@ -3,7 +3,7 @@ package com.viepovsky.barber;
 import org.springframework.stereotype.Service;
 
 @Service
-record BarberService() {
+record BarberService(BarberRepository repository) {
     void registerBarber(BarberRegistrationRequest request) {
         Barber barber = Barber.builder()
                 .firstName(request.firstName())
@@ -11,6 +11,7 @@ record BarberService() {
                 .company(request.company())
                 .email(request.email())
                 .build();
-        //todo: check email if valid and not taken, store barber in db
+
+        repository.save(barber);
     }
 }

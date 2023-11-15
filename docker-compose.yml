@@ -5,12 +5,12 @@ services:
     environment:
       POSTGRES_USER: viepovsky
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: viepovsky
+      POSTGRES_DB: barber
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
-      - 5432:5432
+      - 5430:5432
     networks:
       - postgres
     restart: unless-stopped
