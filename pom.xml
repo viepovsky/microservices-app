@@ -12,6 +12,7 @@
 
     <modules>
         <module>barber</module>
+        <module>recommendation</module>
     </modules>
 
     <properties>

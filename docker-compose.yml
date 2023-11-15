@@ -1,5 +1,5 @@
 services:
-  postgres:
+  barber_db_postgres:
     container_name: postgres
     image: postgres
     environment:
@@ -19,15 +19,38 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_DEFAULT_EMAIL: viepovsky@viepovsky.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
       - 5050:80
     networks:
       - postgres
+    restart: unless-stopped
+
+  recommendation_db_mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: recommendation
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3300:3306
+    restart: unless-stopped
+
+  mysql_workbench:
+    container_name: mysql_workbench
+    image: linuxserver/mysql-workbench
+    environment:
+      CUSTOM_USER: admin
+      PASSWORD: admin
+    volumes:
+      - workbench:/var/lib/workbench
+    ports:
+      - 3000:3000
     restart: unless-stopped
 
 networks:
@@ -37,3 +60,5 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  mysql:
+  workbench:
