@@ -1,12 +1,21 @@
 package com.viepovsky.barber;
 
+import com.viepovsky.clients.notification.NotificationClient;
+import com.viepovsky.clients.notification.NotificationRequest;
+import com.viepovsky.clients.recommendation.RecommendationClient;
+import com.viepovsky.clients.recommendation.RecommendationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
-record BarberService(BarberRepository repository, RestTemplate restTemplate) {
+record BarberService(
+        BarberRepository repository,
+        RestTemplate restTemplate,
+        RecommendationClient recommendationClient,
+        NotificationClient notificationClient
+) {
     void registerBarber(BarberRegistrationRequest request) {
         Barber barber = Barber.builder()
                 .firstName(request.firstName())
@@ -16,14 +25,19 @@ record BarberService(BarberRepository repository, RestTemplate restTemplate) {
                 .build();
         repository.saveAndFlush(barber);
 
-        RecommendationResponse response = restTemplate.getForObject(
-                "http://RECOMMENDATION/api/v1/recommendations/{barberId}",
-                RecommendationResponse.class,
-                barber.getId()
-        );
+        RecommendationResponse response = recommendationClient.isBarberRecommended(barber.getId());
+
         log.info("Response from Recommendation service:{}", response);
         if (response != null && response.isRecommended()) {
             log.info("Hurray, the barber you registered is recommended.");
+        } else {
+            notificationClient.storeNotification(
+                    new NotificationRequest(
+                            "Notification message",
+                            "viepovsky",
+                            barber.getEmail(),
+                            barber.getId()
+                    ));
         }
     }
 }
