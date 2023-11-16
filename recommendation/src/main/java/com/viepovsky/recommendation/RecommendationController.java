@@ -14,9 +14,9 @@ class RecommendationController {
     }
 
     @GetMapping("/{barberId}")
-    RecommendationCheckResponse isBarberRecommended(@PathVariable Long barberId) {
-        boolean isRecommended = service.isBarberRecommended(barberId);
+    RecommendationResponse isBarberRecommended(@PathVariable Long barberId) {
         log.info("New recommendation check for barber {}", barberId);
-        return new RecommendationCheckResponse(isRecommended);
+        boolean isRecommended = service.isBarberRecommended(barberId);
+        return new RecommendationResponse(isRecommended);
     }
 }
