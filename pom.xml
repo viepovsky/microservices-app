@@ -15,6 +15,7 @@
         <module>recommendation</module>
         <module>eureka-server</module>
         <module>open-feign-clients</module>
+        <module>notification</module>
     </modules>
 
     <properties>
