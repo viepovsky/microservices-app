@@ -19,13 +19,22 @@ The application is built using `Spring Boot 3.1.2` version and the following fra
 - Hibernate
 - Maven
 - PostgreSQL, MySQL, MongoDB
+- Tracing with observing tool Zipkin (runs on `localhost:9411`)
 - Docker
 - Lombok
 
 ## How to run
 
-To start the application, run `docker compose up -d`, then start the `Eureka Server` app. Wait for a while and run all other applications.
-You can test it by requesting barber enpoint on `localhost:8080/api/v1/barbers`
+To launch the application, execute `docker compose up -d`. Next, start the `Eureka Server` app. Wait for a while and run all other applications.
+To test the functionality, perform a POST request on the barber endpoint at `localhost:8080/api/v1/barbers` using the following request body:
+```json
+{
+    "firstName": "Name",
+    "lastName": "LastName",
+    "company": "BarberDream",
+    "email": "barber@gmail.com"
+}
+```
 
 ## Future development of the repo
 
