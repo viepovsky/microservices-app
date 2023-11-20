@@ -3,7 +3,8 @@ package com.viepovsky.notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {
+@SpringBootApplication(
+        scanBasePackages = {
         "com.viepovsky.notification",
         "com.viepovsky.amqp"
 })

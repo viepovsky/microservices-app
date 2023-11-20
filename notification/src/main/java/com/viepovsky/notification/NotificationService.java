@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-class NotificationService {
+public class NotificationService {
     private final NotificationRepository repository;
 
     NotificationService(NotificationRepository repository) {
         this.repository = repository;
     }
 
-    void storeNotification(NotificationRequest request) {
+    public void storeNotification(NotificationRequest request) {
         repository.save(Notification.builder()
                 .textMessage(request.textMessage())
                 .whoSend(request.whoSend())
@@ -23,5 +23,6 @@ class NotificationService {
                 .barberEmail(request.barberEmail())
                 .barberId(request.barberId())
                 .build());
+        log.info("Saved request to database.");
     }
 }
