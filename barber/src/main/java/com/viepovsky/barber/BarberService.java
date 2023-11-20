@@ -1,5 +1,6 @@
 package com.viepovsky.barber;
 
+import com.viepovsky.amqp.RabbitMQMessageProducer;
 import com.viepovsky.clients.notification.NotificationClient;
 import com.viepovsky.clients.notification.NotificationRequest;
 import com.viepovsky.clients.recommendation.RecommendationClient;
@@ -12,9 +13,8 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 record BarberService(
         BarberRepository repository,
-        RestTemplate restTemplate,
         RecommendationClient recommendationClient,
-        NotificationClient notificationClient
+        RabbitMQMessageProducer rabbitMQMessageProducer
 ) {
     void registerBarber(BarberRegistrationRequest request) {
         Barber barber = Barber.builder()
@@ -26,18 +26,21 @@ record BarberService(
         repository.saveAndFlush(barber);
 
         RecommendationResponse response = recommendationClient.isBarberRecommended(barber.getId());
-
         log.info("Response from Recommendation service:{}", response);
         if (response != null && response.isRecommended()) {
             log.info("Hurray, the barber you registered is recommended.");
-        } else {
-            notificationClient.storeNotification(
-                    new NotificationRequest(
-                            "Notification message",
-                            "viepovsky",
-                            barber.getEmail(),
-                            barber.getId()
-                    ));
         }
+
+        NotificationRequest notificationRequest = new NotificationRequest(
+                "Notification message",
+                "viepovsky",
+                barber.getEmail(),
+                barber.getId()
+        );
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
+        );
     }
 }
