@@ -16,6 +16,7 @@
         <module>eureka-server</module>
         <module>open-feign-clients</module>
         <module>notification</module>
+        <module>spring-cloud-gateway</module>
     </modules>
 
     <properties>
