@@ -8,7 +8,7 @@
         <artifactId>viepovsky-microservices</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <packaging>jar</packaging>
     <artifactId>eureka-server</artifactId>
 
     <dependencies>
@@ -18,4 +18,12 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
