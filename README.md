@@ -38,5 +38,11 @@ To test the functionality, perform a POST request on the barber endpoint at `loc
 
 ## Future development of the repo
 
-Future enhancements include introducing Kafka/RabbitMQ queues and other improvements.
+Future enhancements include introducing Kafka/~~RabbitMQ~~ :white_check_mark: queues and other improvements.
 Deployment to AWS using Kubernetes is on the roadmap, and the project is continuously evolving.
+
+## Actual repo microservice schema 
+
+![microservice.jpg](microservice.jpg)
+
+##### This repository is still in development and is constantly being improved.
