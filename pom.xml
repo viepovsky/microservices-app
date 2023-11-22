@@ -30,6 +30,9 @@
         <spring.boot.maven.plugin.version>3.1.2</spring.boot.maven.plugin.version>
         <spring.boot.dependencies.version>3.1.2</spring.boot.dependencies.version>
         <spring-cloud.version>2022.0.3</spring-cloud.version>
+
+        <jib.maven.plugin.version>3.4.0</jib.maven.plugin.version>
+        <image>viepovsky/${project.artifactId}:${project.version}</image>
     </properties>
 
     <dependencyManagement>
@@ -89,6 +92,37 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin> <!--https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#quickstart-->
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib.maven.plugin.version}</version>
+                    <configuration>
+                        <from>
+                            <image>
+                                eclipse-temurin:17-jre@sha256:171e90d2ca55e6958d8b56b58670fe42e9986c540225ce9f61a67b477017c217
+                            </image>
+                            <platforms>
+                                <platform>
+                                    <architecture>amd64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                            </platforms>
+                        </from>
+                        <to>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </to>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
