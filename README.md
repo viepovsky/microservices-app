@@ -22,6 +22,7 @@ The application is built using `Spring Boot 3.1.2` version and the following fra
 - Tracing with observing tool Zipkin (runs on `localhost:9411`)
 - Docker
 - Lombok
+- Kubernetes - [branch](https://github.com/viepovsky/microservices-app/tree/local_kubernetes) without EurekaServer and Spring Cloud Gateway
 
 ## How to run
 
