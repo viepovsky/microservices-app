@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
         name = "recommendation",
-        path = "api/v1/recommendations"
+        path = "api/v1/recommendations",
+        url = "${feign.client.recommendation.url}"
 )
 public interface RecommendationClient {
     @GetMapping("{barberId}")

@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(
@@ -13,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
         "com.viepovsky.amqp"
 })
 @EnableFeignClients(basePackages = "com.viepovsky.clients")
+@PropertySources({
+        @PropertySource("classpath:feignclients-${spring.profiles.active}.properties")
+})
 public class BarberApplication {
     public static void main(String[] args) {
         SpringApplication.run(BarberApplication.class, args);
