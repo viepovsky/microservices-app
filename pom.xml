@@ -13,10 +13,8 @@
     <modules>
         <module>barber</module>
         <module>recommendation</module>
-        <module>eureka-server</module>
         <module>open-feign-clients</module>
         <module>notification</module>
-        <module>spring-cloud-gateway</module>
         <module>amqp-message-queue-service</module>
     </modules>
 

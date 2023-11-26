@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: barber
+  labels:
+    app: barber
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: barber
+  template:
+    metadata:
+      name: barber
+      labels:
+        app: barber
+    spec:
+      containers:
+        - name: barber
+          image: viepovsky/barber:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+      restartPolicy: Always
