@@ -112,66 +112,50 @@ services:
       - 5672:5672 #queues
       - 15672:15672 #management
 
-#  spring-cloud-gateway:
-#    container_name: gateway
-#    image: viepovsky/spring-cloud-gateway:1.0-SNAPSHOT
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    ports:
-#      - 8083:8083
-#    networks:
-#      - microservices
-#    depends_on:
-#      - zipkin
-#      - eureka-server
+  barber:
+    container_name: barber
+    image: viepovsky/barber:1.0-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - 8080:8080
+    networks:
+      - microservices
+      - postgres
+    depends_on:
+      - zipkin
+      - barber_db_postgres
+      - rabbitmq
 
-#  barber:
-#    container_name: barber
-#    image: viepovsky/barber:1.0-SNAPSHOT
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    ports:
-#      - 8080:8080
-#    networks:
-#      - microservices
-#      - postgres
-#    depends_on:
-#      - zipkin
-#      - eureka-server
-#      - barber_db_postgres
-#      - rabbitmq
-#
-#  recommendation:
-#    container_name: recommendation
-#    image: viepovsky/recommendation:1.0-SNAPSHOT
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    ports:
-#      - 8081:8081
-#    networks:
-#      - microservices
-#      - mysql
-#    depends_on:
-#      - zipkin
-#      - eureka-server
-#      - recommendation_db_mysql
-#      - rabbitmq
-#
-#  notification:
-#    container_name: notification
-#    image: viepovsky/notification:1.0-SNAPSHOT
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    ports:
-#      - 8082:8082
-#    networks:
-#      - microservices
-#      - mongodb
-#    depends_on:
-#      - zipkin
-#      - eureka-server
-#      - notification_db_mongodb
-#      - rabbitmq
+  recommendation:
+    container_name: recommendation
+    image: viepovsky/recommendation:1.0-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - 8081:8081
+    networks:
+      - microservices
+      - mysql
+    depends_on:
+      - zipkin
+      - recommendation_db_mysql
+      - rabbitmq
+
+  notification:
+    container_name: notification
+    image: viepovsky/notification:1.0-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - 8082:8082
+    networks:
+      - microservices
+      - mongodb
+    depends_on:
+      - zipkin
+      - notification_db_mongodb
+      - rabbitmq
 
 networks:
   postgres:
