@@ -112,18 +112,6 @@ services:
       - 5672:5672 #queues
       - 15672:15672 #management
 
-  eureka-server:
-    container_name: eureka-server
-    image: viepovsky/eureka-server:1.0-SNAPSHOT
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    ports:
-      - 8761:8761
-    networks:
-      - microservices
-    depends_on:
-      - zipkin
-
   spring-cloud-gateway:
     container_name: gateway
     image: viepovsky/spring-cloud-gateway:1.0-SNAPSHOT
