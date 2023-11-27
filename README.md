@@ -22,12 +22,14 @@ The application is built using `Spring Boot 3.1.2` version and the following fra
 - Tracing with observing tool Zipkin (runs on `localhost:9411`)
 - Docker
 - Lombok
+- Spring Cloud Gateway - Load Balancer on port 8083
 - Kubernetes - [branch](https://github.com/viepovsky/microservices-app/tree/local_kubernetes) without EurekaServer and Spring Cloud Gateway
 
 ## How to run
 
-To launch the application, execute `docker compose up -d`. Next, start the `Eureka Server` app. Wait for a while and run all other applications.
-To test the functionality, perform a POST request on the barber endpoint at `localhost:8080/api/v1/barbers` using the following request body:
+To launch the application, execute `docker compose up -d`. 
+To test the functionality, perform a POST request on the Load Balancer endpoint at `localhost:8083/api/v1/barbers` using the following request body:
+
 ```json
 {
     "firstName": "Name",
@@ -36,6 +38,9 @@ To test the functionality, perform a POST request on the barber endpoint at `loc
     "email": "barber@gmail.com"
 }
 ```
+Before performing request check availibility of all services - http://localhost:8761/
+
+You can also track the request - http://localhost:9411/
 
 ## Future development of the repo
 
