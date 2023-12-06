@@ -19,6 +19,7 @@ The application is built using `Spring Boot 3.1.2` version and the following fra
 - Hibernate
 - Maven
 - PostgreSQL, MySQL, MongoDB
+- RabbitMQ
 - Tracing with observing tool Zipkin (runs on `localhost:9411`)
 - Docker
 - Lombok
